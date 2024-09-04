@@ -22,7 +22,7 @@ const Header: React.FC = () => {
                 <Link href="/market" className="w-[135px] h-[47px] bg-[#F4E2C7] text-gray-800 text-lg text-center flex items-center justify-center rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500">
                     Mercado
                 </Link>
-                <Link href="/weather" className="w-[135px] h-[47px] bg-[#F4E2C7] text-gray-800 text-lg text-center flex items-center justify-center rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <Link href="/forecast" className="w-[135px] h-[47px] bg-[#F4E2C7] text-gray-800 text-lg text-center flex items-center justify-center rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500">
                     Clima
                 </Link>
                 <Link href="/about" className="w-[135px] h-[47px] bg-[#F4E2C7] text-gray-800 text-lg text-center flex items-center justify-center rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500">

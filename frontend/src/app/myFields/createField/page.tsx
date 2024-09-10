@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SubmitButton } from "@/components/form/SubmitButton";
 import { Input } from "@/components/form/Input";
 import { Select } from "@/components/form/Select";
@@ -10,18 +10,15 @@ import { createCampo } from "@/services";
 import { toast } from "sonner";
 import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
-import { isDecimal, isPositiveInteger } from "@/utils/validators";
-import dynamic from "next/dynamic";
-
-const MapView = dynamic(() => import("../../../components/MapView"), {
-  ssr: false,
-});
+import useFormState from "@/hooks/useFormState";
+import { findInputErrors, getFieldFormRules } from "@/utils/validationRules";
+import { ErrorMessage } from "@/components/form/ErrorMessage";
 
 const CreateField: React.FC = () => {
   const { fetchData } = useFetchData();
   const { user, addField } = userStore((data) => data);
   const router = useRouter();
-  const [form, setForm] = useState({
+  const { formState, setFormState } = useFormState({
     name: "",
     latitude: "",
     longitude: "",
@@ -33,20 +30,35 @@ const CreateField: React.FC = () => {
     season: "",
   });
 
+  const [showInputErrors, setShowInputErrors] = useState(false);
+
+  const validationRules = getFieldFormRules(
+    formState.latitude,
+    formState.longitude,
+    formState.size,
+    formState.workersAmount
+  );
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (findInputErrors(validationRules).length > 0) {
+      setShowInputErrors(true);
+      return;
+    }
+    setShowInputErrors(false);
+
     const newField = {
       userId: user?.user.id,
-      name: form.name,
-      latitude: parseFloat(form.latitude),
-      longitude: parseFloat(form.longitude),
-      size: parseFloat(form.size),
-      workersAmount: parseFloat(form.workersAmount),
-      mainCrop: form.mainCrop,
-      weatherType: form.weatherType,
-      administration: form.administration,
-      season: form.season,
+      name: formState.name,
+      latitude: parseFloat(formState.latitude),
+      longitude: parseFloat(formState.longitude),
+      size: parseFloat(formState.size),
+      workersAmount: parseFloat(formState.workersAmount),
+      mainCrop: formState.mainCrop,
+      weatherType: formState.weatherType,
+      administration: formState.administration,
+      season: formState.season,
     };
 
     const { ok, data } = await fetchData(createCampo, { body: newField });
@@ -58,39 +70,6 @@ const CreateField: React.FC = () => {
       : toast.error("No se pudo crear el campo!!");
 
     console.log(data);
-  };
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        setForm((prev) => ({
-          ...prev,
-          latitude: coords.latitude + "",
-          longitude: coords.longitude + "",
-        }));
-      });
-    }
-  }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    if ((name === "latitude" || name === "longitude") && !isDecimal(value))
-      return;
-
-    if (
-      (name === "size" || name === "workersAmount") &&
-      !isPositiveInteger(value)
-    )
-      return;
-
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   return (
@@ -114,31 +93,23 @@ const CreateField: React.FC = () => {
                    md:space-y-4"
         onSubmit={handleSubmit}
       >
-        {newFieldInputFields.slice(0, 3).map((field, index) => (
-          <div className="relative" key={index + 1}>
+        {newFieldInputFields.map((field, index) => (
+          <div className="relative" key={index}>
             <Input
               label={field.label}
               name={field.name}
-              value={form[field.name as keyof typeof form]}
+              value={formState[field.name as keyof typeof formState]}
               type={"text"}
-              handleChange={handleChange}
+              handleChange={setFormState}
             />
-          </div>
-        ))}
-
-        <MapView
-          latitude={parseFloat(form.latitude)}
-          longitude={parseFloat(form.longitude)}
-        />
-
-        {newFieldInputFields.slice(3, 5).map((field, index) => (
-          <div className="relative" key={index + 1}>
-            <Input
-              label={field.label}
-              name={field.name}
-              value={form[field.name as keyof typeof form]}
-              type={"text"}
-              handleChange={handleChange}
+            <ErrorMessage
+              validationRules={
+                showInputErrors
+                  ? validationRules.filter(
+                      (validationRule) => validationRule.field === field.name
+                    )
+                  : []
+              }
             />
           </div>
         ))}
@@ -147,8 +118,8 @@ const CreateField: React.FC = () => {
           <Select
             key={index}
             name={field.name}
-            handleChange={handleChange}
-            value={form[field.name as keyof typeof form]}
+            handleChange={setFormState}
+            value={formState[field.name as keyof typeof formState]}
             options={field.options}
           />
         ))}

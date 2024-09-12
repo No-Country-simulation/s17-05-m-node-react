@@ -1,19 +1,19 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const getToday = async (lat, lon) => {
   try {
-    return await axios.get("https://api.openweathermap.org/data/3.0/onecall", {
+    const peticion = await axios.get("http://api.openweathermap.org/data/2.5/weather", {
       params: {
         lat: lat,
         lon: lon,
         appid: process.env.OPEN_WEATHER_API_KEY,
         lang: "es",
         units: "metric",
-        exclude: "minutely",
       },
     });
+    return peticion;
   } catch (error) {
-    console.log("No se pudo traer el pronostico de 1 dia", error);
+    console.error("No se pudo traer el pronóstico de 1 día", error);
     throw error;
   }
 };

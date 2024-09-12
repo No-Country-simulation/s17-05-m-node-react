@@ -4,13 +4,16 @@ import { formatearClima } from "../../Utils/FormatWeatherData.js";
 export const weatherForecast = async (req, res) => {
   const { lat, lon } = req.query;
 
-  if (!lat || !lon)
-    res.status(404).json({ error: "Falta longitude o latitud" });
+  if (!lat || !lon) {
+    return res.status(400).json({ error: "Falta longitude o latitud" });
+  }
 
   try {
-    const forecast = formatearClima((await getToday(lat, lon)).data);
+    const response = await getToday(lat, lon);
+    const forecast = formatearClima(response.data);
     res.json(forecast);
   } catch (error) {
-    res.status(404).json({ error: `no se pudo buscar el clima ${error}` });
+    console.error("Error al obtener el clima:", error);
+    res.status(500).json({ error: `No se pudo buscar el clima ${error.message}` });
   }
 };

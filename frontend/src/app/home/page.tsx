@@ -1,7 +1,7 @@
 "use client";
 import { userStore } from "@/context/zustand";
 import useFetchData from "@/hooks/useFetchData";
-import { getWeatherForecast } from "@/services";
+import { getShortRecommendation, getWeatherForecast } from "@/services";
 import Head from "next/head";
 import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
@@ -25,13 +25,14 @@ interface WeatherForecast {
   prediccionDias: any[];
 }
 
+
 // Sample location data
 const locations = [
-  { id: 1, name: "Córdoba, Argentina", lat: "-31.4167", lon: "-64.1833" },
-  { id: 2, name: "Buenos Aires, Argentina", lat: "-34.6037", lon: "-58.3816" },
-  { id: 3, name: "Rosario, Argentina", lat: "-32.9468", lon: "-60.6393" },
-  { id: 4, name: "Mendoza, Argentina", lat: "-32.8833", lon: "-68.8167" },
-  { id: 5, name: "Salta, Argentina", lat: "-24.7833", lon: "-65.4167" },
+  { id: 1, name: "Córdoba, Argentina", lat: "-31.4167", lon: "-64.1833", crop: "maiz" },
+  { id: 2, name: "Buenos Aires, Argentina", lat: "-34.6037", lon: "-58.3816", crop: "soja" },
+  { id: 3, name: "Rosario, Argentina", lat: "-32.9468", lon: "-60.6393", crop: "sorgo" },
+  { id: 4, name: "Mendoza, Argentina", lat: "-32.8833", lon: "-68.8167", crop: "trigo" },
+  { id: 5, name: "Salta, Argentina", lat: "-24.7833", lon: "-65.4167", crop: "girasol" },
 ];
 
 const WeatherDashboard: FC = () => {
@@ -40,6 +41,7 @@ const WeatherDashboard: FC = () => {
   const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
     {} as WeatherForecast
   );
+  const [recommendation, setRecommendation] = useState({} as any);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, fields } = userStore((data) => data);
@@ -58,7 +60,31 @@ const WeatherDashboard: FC = () => {
       ? setWeatherForescast(data)
       : toast.error("No se puedo traer la prediccion del clima");
 
-    console.log(weatherForescast);
+    // console.log(weatherForescast);
+  };
+
+  const bodyRecommendation = {
+    latitud: selectedLocation.lat,
+    longitude: selectedLocation.lon,
+    crop: selectedLocation.crop,
+    humidity: weatherForescast?.climaActual?.humedad,
+    maxTemp: weatherForescast?.climaActual?.temperaturaMaxima,
+    minTemp: weatherForescast?.climaActual?.temperaturaMinima,
+    wind: weatherForescast?.climaActual?.viento,
+    clouds: 20,
+    uv: 5,
+  };
+
+  const getRecommendation = async ({ }) => {
+    const { ok, data } = await fetchData(getShortRecommendation, {
+      body: bodyRecommendation,
+    });
+
+    ok
+      ? setRecommendation(data)
+      : toast.error("No se puedo traer las recomendaciones");
+
+    console.log("Bodyrecommendation", bodyRecommendation);
   };
 
   useEffect(() => {
@@ -73,11 +99,17 @@ const WeatherDashboard: FC = () => {
 
     getForescast(selectedLocation.lat, selectedLocation.lon); // aqui deberia ir la ubi del user o el campo
 
+    
+    
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [selectedLocation]);
+  useEffect(() => {
+    
+    getRecommendation(bodyRecommendation);
+  }, [weatherForescast]);
 
   return (
     <>
@@ -93,13 +125,13 @@ const WeatherDashboard: FC = () => {
           <div className="mb-4 relative" ref={dropdownRef}>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="bg-white border border-gray-300 rounded-md px-4 py-2  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 flex items-center justify-between"
+              className="bg-white border border-gray-300 rounded-md px-4 py-2  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 flex items-center justify-between"
             >
-              {selectedLocation.name}
+              {selectedLocation.name + " - " + selectedLocation.crop}
               {isOpen ? <Image src="/downarrow.svg" width={20} height={20} alt="" /> : <Image src="/uparrow.svg" width={20} height={20} alt="" />}
             </button>
             {isOpen && (
-              <div className="absolute mt-2 w-64 bg-white text-gray-700 border border-gray-300 rounded-md shadow-lg z-10">
+              <div className="absolute mt-2 w-80 bg-white text-gray-700 border border-gray-300 rounded-md shadow-lg z-10">
                 <input
                   type="text"
                   placeholder="Buscar parcela..."
@@ -118,7 +150,7 @@ const WeatherDashboard: FC = () => {
                         setSearchTerm("");
                       }}
                     >
-                      {location.name}
+                      {location.name + " - " + location.crop}
                     </div>
                   ))}
                 </div>
@@ -284,10 +316,10 @@ const WeatherDashboard: FC = () => {
                 ))}
               </div>
             </div>
-            {/* Hourly forecast */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
-              <div className="flex justify-between text-xl">
-                Se recomiendan riegos moderados
+            {/* Generic advice */}
+            <div className="col-span-2 bg-gray-800 rounded-lg p-2 text-white">
+              <div className="flex justify-between ">
+                {recommendation?.recomendation}
               </div>
             </div>
           </div>

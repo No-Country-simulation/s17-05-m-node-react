@@ -2,6 +2,7 @@ import { FuntionProps, QueryProps } from "@/types";
 import api from "./api";
 import createQuerys from "@/utils/createQuerys";
 
+
 //  User services
 
 export const registerUser = <T>({ body }: FuntionProps<T>) =>
@@ -43,3 +44,8 @@ export const getExchangeRates = async () => await api.get("/dollar");
 export const getAgroMentorRecomendation = async <T>({
   body,
 }: FuntionProps<T>) => await api.post("/agroMentor/response", body);
+
+// Generic advice services
+
+export const getShortRecommendation = async <T>({ body }: FuntionProps<T>) =>
+  await api.post("/agroMentor/recommendation", body);

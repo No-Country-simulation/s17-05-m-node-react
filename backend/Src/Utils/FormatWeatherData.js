@@ -9,6 +9,8 @@ export function formatearClima(data) {
     faseLunar: data.daily[0].moon_phase,
     temperaturaMaxima: data.daily[0].temp.max,
     temperaturaMinima: data.daily[0].temp.min,
+    indiceUv: data.current.uvi,
+    nubes: data.current.clouds,
     humedad: data.current.humidity,
     viento: {
       velocidad: data.current.wind_speed,

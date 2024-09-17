@@ -151,7 +151,7 @@ const Header: React.FC = () => {
                      focus:ring-2
                      focus:ring-green-500"
         >
-          Sobre nosotros
+          Nosotros
         </Link>
       </nav>
 

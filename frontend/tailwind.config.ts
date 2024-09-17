@@ -17,6 +17,7 @@ const config: Config = {
       colors: {
         "primary-green": "#235C2A",
         "seconday-green": "#86B762",
+        "tumbo": "#F7E2D4",
       },
       backgroundImage: {
         loginBg: "url('/loginAndRegisterBG.jpeg')",

@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Header from "./common/Header";
+import Footer from "./common/Footer";
+import withAuth from "./auth/withAuth";
 
-export default function Home() {
+export default function  Home() {
   return (
     <>
+      {}
       <Header />
       <main className="relative flex font-[Poppins] bg-[url('/landing_hero2.webp')] bg-cover min-h-custom">
         <div className="flex flex-col justify-center items-start p-8 h-screen max-h-custom z-20">
@@ -22,6 +25,7 @@ export default function Home() {
 
         </div>
       </main>
+      <Footer/>
     </>
   );
 }

@@ -4,6 +4,8 @@ import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
 import Field from "../../components/field/Field";
 import Header from "../common/Header";
+import Footer from "../common/Footer";
+import withAuth from "../auth/withAuth";
 // import { useState } from "react";
 
 // interface FieldData {
@@ -47,8 +49,9 @@ const MyFields = () => {
         Crear campo
       </button>
     </div>
+    <Footer/>
     </>
   );
 };
 
-export default MyFields;
+export default  withAuth(MyFields);

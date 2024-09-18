@@ -1,5 +1,6 @@
 "use cliente";
 
+import { Loader } from "@/components/Loader";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,11 +16,11 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     useEffect(() => {
       if (typeof window !== "undefined") {
         const getToken = JSON.parse(localStorage.getItem("userStore") || "{}");
-        getToken?.state?.user.token ? setIsLogin(true) : router.push("/login");
+        getToken?.state?.user?.token ? setIsLogin(true) : router.push("/login");
       }
     }, [router]);
 
-    return isLogin ? <WrappedComponent {...props} /> : <h1>Cargando</h1>;
+    return isLogin ? <WrappedComponent {...props} /> : <Loader/>;
   };
 
   return Wrapper;

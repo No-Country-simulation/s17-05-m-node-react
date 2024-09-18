@@ -7,7 +7,7 @@ export const Loader = () => {
 
   return (
     <>
-      {isLoading && (
+      {true && (
         <div
           className="fixed w-full
                      h-screen flex

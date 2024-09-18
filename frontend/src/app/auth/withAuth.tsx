@@ -1,5 +1,6 @@
 "use cliente";
 
+import { Loader } from "@/components/Loader";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -19,7 +20,7 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
       }
     }, [router]);
 
-    return isLogin ? <WrappedComponent {...props} /> : <h1>Cargando</h1>;
+    return isLogin ? <WrappedComponent {...props} /> : <Loader/>;
   };
 
   return Wrapper;

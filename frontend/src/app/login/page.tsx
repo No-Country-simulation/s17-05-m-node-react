@@ -22,6 +22,7 @@ const Login: React.FC = () => {
     const { ok, data } = await fetchData(loginUser, { body: formState });
 
     if (ok) {
+      console.log(data)
       toast.success("Usuario correcto");
       setUser(data);
       router.push("home");

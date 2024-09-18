@@ -11,6 +11,7 @@ import Header from "../common/Header";
 import { useRouter } from "next/navigation";
 import UVIndex from "@/components/UVIndex";
 import Footer from "../common/Footer";
+import MoonPhase from "@/components/MoonPhase";
 
 interface WeatherForecast {
   pronosticoPorHoras: any;
@@ -250,26 +251,15 @@ const WeatherDashboard: FC = () => {
 
             {/* UV Index */}
             <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white  flex items-center align justify-center">
-              {/* <div className="text-center">
-                <div>Índice rayos UV</div>
-                <div className="text-2xl font-bold">{weatherForescast?.climaActual?.indiceUv} uv</div>
-                {weatherForescast?.climaActual?.indiceUv < 3 ? (
-                  <div className="text-green-400">Bajo</div>
-                ) : weatherForescast?.climaActual?.indiceUv < 6 ? (
-                  <div className="text-yellow-400">Moderado</div>
-                ) : (
-                  <div className="text-red-400">Alto</div>
-                )}
-              </div> */}
+
               <UVIndex value={weatherForescast?.climaActual?.indiceUv} maxValue={10} />
             </div>
 
             {/* Moon phase */}
-            <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center justify-center p-4 text-white">
-              <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
-              <div className="text-center">{selectedLocation?.name}</div>
-              <div>{new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}</div>
-              <div>Fase lunar: {weatherForescast.climaActual?.faseLunar}</div>
+            <div className="col-span-2  justify-center ">
+
+              <MoonPhase faseLunar={weatherForescast.climaActual?.faseLunar} location={selectedLocation.name} />
+
             </div>
 
             {/* Weather details */}

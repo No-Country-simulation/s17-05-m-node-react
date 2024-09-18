@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import withAuth from "../auth/withAuth";
 import Header from "../common/Header";
 import { useRouter } from "next/navigation";
+import UVIndex from "@/components/UVIndex";
 import Footer from "../common/Footer";
 
 interface WeatherForecast {
@@ -29,37 +30,37 @@ interface WeatherForecast {
   prediccionDias: any[];
 }
 
-  const WeatherDashboard: FC = () => {
-    const locations = userStore((user) => user.fields);
-    console.log(locations[0])
-    const [selectedLocation, setSelectedLocation] = useState(locations[0]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
-      {} as WeatherForecast
-    );
-    const [recommendation, setRecommendation] = useState({} as any);
-    const [searchTerm, setSearchTerm] = useState("");
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const { user, fields } = userStore((data) => data);
-    const { fetchData } = useFetchData();
-    const router = useRouter();
-    
-    const filteredLocations = locations.filter((location) =>
-      location.name.toLowerCase().includes(searchTerm.toLowerCase())
+const WeatherDashboard: FC = () => {
+  const locations = userStore((user) => user.fields);
+  console.log(locations[0])
+  const [selectedLocation, setSelectedLocation] = useState(locations[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
+    {} as WeatherForecast
   );
-  
+  const [recommendation, setRecommendation] = useState({} as any);
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user, fields } = userStore((data) => data);
+  const { fetchData } = useFetchData();
+  const router = useRouter();
+
+  const filteredLocations = locations.filter((location) =>
+    location.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const getForescast = async (lat: string, lon: string) => {
     const { ok, data } = await fetchData(getWeatherForecast, {
       querys: { lat, lon },
     });
 
     ok
-    ? setWeatherForescast(data)
-    : toast.error("No se puedo traer la prediccion del clima");
-    
+      ? setWeatherForescast(data)
+      : toast.error("No se puedo traer la prediccion del clima");
+
     // console.log(weatherForescast);
   };
-  
+
   const bodyRecommendation = {
     latitud: selectedLocation?.latitude,
     longitude: selectedLocation?.longitude,
@@ -71,19 +72,19 @@ interface WeatherForecast {
     clouds: weatherForescast?.climaActual?.nubes,
     uv: weatherForescast?.climaActual?.indiceUv,
   };
-  
+
   const getRecommendation = async ({ }) => {
     const { ok, data } = await fetchData(getShortRecommendation, {
       body: bodyRecommendation,
     });
-    
+
     ok
-    ? setRecommendation(data)
-    : toast.error("No se puedo traer las recomendaciones");
-    
+      ? setRecommendation(data)
+      : toast.error("No se puedo traer las recomendaciones");
+
     console.log("Bodyrecommendation", bodyRecommendation);
   };
-  
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -93,7 +94,7 @@ interface WeatherForecast {
         setIsOpen(false);
       }
     };
-    
+
     selectedLocation && getForescast(selectedLocation?.latitude, selectedLocation?.longitude); // aqui deberia ir la ubi del user o el campo
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -102,15 +103,15 @@ interface WeatherForecast {
     };
   }, [selectedLocation]);
   useEffect(() => {
-    
+
     getRecommendation(bodyRecommendation);
   }, [weatherForescast]);
 
-  
+
   return (
     <>
       <Header />
-     {selectedLocation ? ( <div className="min-h-screen bg-pink-50 p-8">
+      {selectedLocation ? (<div className="min-h-screen bg-pink-50 p-8">
         <Head>
           <title>Panel del clima</title>
           <link rel="icon" href="/favicon.ico" />
@@ -156,8 +157,8 @@ interface WeatherForecast {
 
           {/* Weather card for selected location */}
           <div className="grid grid-cols-8 gap-4">
-            <div className="col-span-2 row-span-3 bg-green-300 rounded-lg p-4 text-gray-800">
-              <div className="flex flex-col items-center mb-2 gap-4">
+            <div className="col-span-2 row-span-3 bg-green-300 rounded-lg p-4 text-gray-800 flex items-center justify-center">
+              <div className="flex flex-col items-center mb-2 gap-4 self-center">
                 {/* <div className="w-24 h-24 bg-yellow-300 rounded-full mr-2"></div> */}
                 <Image
                   src={`https://openweathermap.org/img/wn/${weatherForescast?.climaActual?.iconoClimaActual}.png`}
@@ -198,20 +199,21 @@ interface WeatherForecast {
                   )
                 ).map((day, index) => (
                   <div key={day} className="text-center">
-                    <div>{day}</div>
+                    <div className="flex items-center justify-center">{day}</div>
                     <Image
                       src={`https://openweathermap.org/img/wn/${weatherForescast?.prediccionDias?.[index]?.icono}.png`}
                       alt="clima"
                       width={50}
                       height={50}
+                      className="mx-auto"
                     />
-                    <div>
+                    <div className="flex items-center justify-center">
                       {weatherForescast?.prediccionDias?.[index]
-                        ?.temperaturaMaxima ?? ""}
-                      °C -{" "}
+                        ?.temperaturaMaxima.toFixed(0) ?? ""}
+                      ° {" "}
                       {weatherForescast?.prediccionDias?.[index]
-                        ?.temperaturaMinima ?? ""}
-                      °C
+                        ?.temperaturaMinima.toFixed(0) ?? ""}
+                      °
                     </div>
                   </div>
                 ))}
@@ -219,24 +221,26 @@ interface WeatherForecast {
             </div>
 
             {/* Sunrise/Sunset */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
-              <div className="flex justify-between">
-                <div>
+            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white text-center flex items-center">
+              <div className="flex justify-center">
+                <div className="mx-2">
                   <Image
                     src="/sunrise.svg"
                     alt="Sunrise"
                     width={50}
                     height={50}
+                    className="mx-auto"
                   />
                   <div>Amanecer</div>
                   <div>{weatherForescast?.climaActual?.amanecer}</div>
                 </div>
-                <div>
+                <div className="mx-2">
                   <Image
                     src="/sunset.svg"
                     alt="Sunset"
                     width={50}
                     height={50}
+                    className="mx-auto"
                   />
                   <div>Atardecer</div>
                   <div>{weatherForescast?.climaActual?.atardecer}</div>
@@ -245,20 +249,23 @@ interface WeatherForecast {
             </div>
 
             {/* UV Index */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white text-center">
-              <div>Índice rayos UV</div>
-              <div className="text-2xl font-bold">{weatherForescast?.climaActual?.indiceUv} uv</div>
-              {weatherForescast?.climaActual?.indiceUv < 3 ? (
-                <div className="text-green-400">Bajo</div>
-              ) : weatherForescast?.climaActual?.indiceUv < 6 ? (
-                <div className="text-yellow-400">Moderado</div>
-              ) : (
-                <div className="text-red-400">Alto</div>
-              )}
+            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white  flex items-center align justify-center">
+              {/* <div className="text-center">
+                <div>Índice rayos UV</div>
+                <div className="text-2xl font-bold">{weatherForescast?.climaActual?.indiceUv} uv</div>
+                {weatherForescast?.climaActual?.indiceUv < 3 ? (
+                  <div className="text-green-400">Bajo</div>
+                ) : weatherForescast?.climaActual?.indiceUv < 6 ? (
+                  <div className="text-yellow-400">Moderado</div>
+                ) : (
+                  <div className="text-red-400">Alto</div>
+                )}
+              </div> */}
+              <UVIndex value={weatherForescast?.climaActual?.indiceUv} maxValue={10} />
             </div>
 
             {/* Moon phase */}
-            <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center p-4 text-white">
+            <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center justify-center p-4 text-white">
               <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
               <div className="text-center">{selectedLocation?.name}</div>
               <div>{new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}</div>
@@ -289,18 +296,19 @@ interface WeatherForecast {
             </div>
 
             {/* Hourly forecast */}
-            <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white">
+            <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white flex items-center justify-center">
               <div className="flex justify-between">
                 {Array.from(
                   { length: 6 },
                   (_, i) => new Date(Date.now() + i * 60 * 60 * 1000)
                 ).map((date, i) => (
-                  <div key={date.toTimeString()} className="text-center">
+                  <div key={date.toTimeString()} className="text-center p-1">
                     <div>
                       {date.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                        hour: "numeric",
+                        // minute: "2-digit",
+                        hour12: true,
+                      }).toLowerCase()}
                     </div>
                     <Image
                       src={`https://openweathermap.org/img/wn/${weatherForescast?.pronosticoPorHoras?.[i]?.icono}.png`}
@@ -311,7 +319,7 @@ interface WeatherForecast {
                     <div>
                       {weatherForescast?.pronosticoPorHoras?.[
                         i
-                      ]?.temperatura.toFixed(1)}
+                      ]?.temperatura.toFixed(0)}
                       °
                     </div>
                   </div>
@@ -327,16 +335,16 @@ interface WeatherForecast {
           </div>
         </main>
       </div>) : (
-              <div className="flex flex-col justify-center items-center bg-primary text-black min-h-custom">
-                <h1 className="text-3xl font-bold mb-2 text-center">No hay campos creados!!!</h1>
-                <p className="text-lg font-semibold ">Para mostrar el clima en tus campos, primero deberías crea uno</p>
-                <button
-                onClick={() => router.push("myFields/createField")}
-                className="mt-10 bg-[#2f6c3d] text-white px-4 py-2  rounded"
-                            >
-                Crear campo
-                            </button>
-              </div>
+        <div className="flex flex-col justify-center items-center bg-primary text-black min-h-custom">
+          <h1 className="text-3xl font-bold mb-2 text-center">No hay campos creados!!!</h1>
+          <p className="text-lg font-semibold ">Para mostrar el clima en tus campos, primero deberías crea uno</p>
+          <button
+            onClick={() => router.push("myFields/createField")}
+            className="mt-10 bg-[#2f6c3d] text-white px-4 py-2  rounded"
+          >
+            Crear campo
+          </button>
+        </div>
       )}
       <Footer/>
     </>

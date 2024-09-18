@@ -7,14 +7,14 @@ import { NotificationLogo } from "@/svg/NotificationLogo";
 import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
-  const {user,closeSesion} = userStore.getState();
+  const { user, closeSesion } = userStore.getState();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const removeUser = () => {
-    if(window) localStorage.removeItem("userStore")
-    closeSesion()
-  }
+    if (window) localStorage.removeItem("userStore");
+    closeSesion();
+  };
   return (
     <header
       className="bg-primary-green
@@ -26,6 +26,7 @@ const Header: React.FC = () => {
                  items-center
                  shadow-md
                  relative
+                 z-[100]
                  "
     >
       {/* Logo */}
@@ -213,7 +214,9 @@ const Header: React.FC = () => {
         >
           <Link
             href="/login"
-            className=" h-[43px]
+            className="w-[135px]
+                       md:w-fit
+                       h-[43px]
                        px-2
                        bg-[#D2A23A]
                        text-gray-800

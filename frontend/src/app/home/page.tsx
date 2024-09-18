@@ -10,6 +10,7 @@ import withAuth from "../auth/withAuth";
 import Header from "../common/Header";
 import { useRouter } from "next/navigation";
 import UVIndex from "@/components/UVIndex";
+import Footer from "../common/Footer";
 
 interface WeatherForecast {
   pronosticoPorHoras: any;
@@ -345,6 +346,7 @@ const WeatherDashboard: FC = () => {
           </button>
         </div>
       )}
+      <Footer/>
     </>
   );
 };

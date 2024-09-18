@@ -4,14 +4,16 @@ import Link from "next/link";
 import { userStore } from "@/context/zustand";
 import MenuButton from "@/components/MenuButton";
 import { NotificationLogo } from "@/svg/NotificationLogo";
-import { icons } from "@/utils/icons";
+import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
-  const {user} = userStore.getState();
+  const {user,closeSesion} = userStore.getState();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const router = useRouter()
 
-  const closeSesion = () => {
+  const removeUser = () => {
     if(window) localStorage.removeItem("userStore")
+    closeSesion()
   }
   return (
     <header
@@ -37,9 +39,11 @@ const Header: React.FC = () => {
         <img
           src="/AgroSmart.webp"
           alt="Logo AgroSmart"
+          onClick={() => router.push("/")}
           className="lg:w-[200px]
                      -mb-2
-                     w-[150px]"
+                     w-[150px]
+                     cursor-pointer"
         />
       </div>
 
@@ -261,8 +265,8 @@ const Header: React.FC = () => {
                      lg:right-0"
         >
           <Link
-            href="/login"
-            onClick={closeSesion}
+            href="/"
+            onClick={removeUser}
             className="hidden
                        lg:flex
                        lg:h-[43px]

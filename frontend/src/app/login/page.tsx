@@ -10,6 +10,7 @@ import { loginUser, getAllCamposByUserId } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/context/zustand";
+import { icons } from "@/utils/icons";
 
 const Login: React.FC = () => {
   const { formState, setFormState } = useFormState({ email: "", password: "" });
@@ -22,6 +23,7 @@ const Login: React.FC = () => {
     const { ok, data } = await fetchData(loginUser, { body: formState });
 
     if (ok) {
+      console.log(data);
       toast.success("Usuario correcto");
       setUser(data);
       router.push("home");
@@ -37,14 +39,22 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen relativ bg-loginBg bg-cover bg-no-repeat flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="max-h-screen relativ bg-loginBg bg-cover bg-no-repeat flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Head>
         <title>Login</title>
         <meta name="description" content="Login page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="max-w-lg w-full space-y-8 bg-white p-8 z-20 rounded-lg">
+      <div className="relative max-w-lg w-full space-y-8 bg-white p-8 z-20 rounded-lg">
+        <button
+          onClick={() => router.push("/")}
+          className="space-x-2 absolute left-5 top-5 text-black rounded-full shadow-md font-semibold px-3 py-2 bg-[#F7E2D4] flex justify-center items-center"
+        >
+          {icons.flecha}  
+          <span>Volver</span>
+        </button>
+
         <div className="flex justify-center py-10">
           <img
             alt="Logo AgroSmart"

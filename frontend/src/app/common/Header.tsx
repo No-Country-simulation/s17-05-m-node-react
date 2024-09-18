@@ -7,12 +7,13 @@ import { NotificationLogo } from "@/svg/NotificationLogo";
 import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
-  const {user} = userStore.getState();
+  const {user,closeSesion} = userStore.getState();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const router = useRouter()
 
-  const closeSesion = () => {
+  const removeUser = () => {
     if(window) localStorage.removeItem("userStore")
+    closeSesion()
   }
   return (
     <header
@@ -264,8 +265,8 @@ const Header: React.FC = () => {
                      lg:right-0"
         >
           <Link
-            href="/login"
-            onClick={closeSesion}
+            href="/"
+            onClick={removeUser}
             className="hidden
                        lg:flex
                        lg:h-[43px]

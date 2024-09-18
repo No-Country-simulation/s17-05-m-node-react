@@ -13,6 +13,9 @@ export const userStore = create<UserStoreProps>()(
         const filterFields = fields.filter((field) => field.id !== id )
         return { fields: filterFields }
       }),
+      closeSesion: () => set(() => {
+        return { fields: [], user: null }
+      }),
       addField: (newField) =>
         set((state) => ({ fields: [...state.fields, newField] })),
       editField: (updatedField) =>

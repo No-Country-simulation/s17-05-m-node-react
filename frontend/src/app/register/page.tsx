@@ -9,6 +9,7 @@ import useFetchData from "@/hooks/useFetchData";
 import { registerUser } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { icons } from "@/utils/icons";
 
 const Register: React.FC = () => {
   const { fetchData } = useFetchData();
@@ -39,7 +40,14 @@ const Register: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="max-w-lg w-full space-y-8 z-20 bg-white p-10 rounded-lg">
+      <div className="relative max-w-lg w-full space-y-8 z-20 bg-white p-10 rounded-lg">
+      <button
+          onClick={() => router.push("/")}
+          className="space-x-2 absolute left-5 top-5 text-black rounded-full shadow-md font-semibold px-3 py-2 bg-[#F7E2D4] flex justify-center items-center"
+        >
+          {icons.flecha}  
+          <span>Volver</span>
+        </button>
         <div className="flex justify-center">
           <img
             alt="Logo AgroSmart"

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Header from "./common/Header";
+import Footer from "./common/Footer";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
 
         </div>
       </main>
+      <Footer/>
     </>
   );
 }

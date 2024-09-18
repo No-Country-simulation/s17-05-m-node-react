@@ -9,6 +9,7 @@ import CropPrices from "../../components/market/CropPrices";
 import CurrencyExchange from "../../components/market/CurrencyExchange";
 import AgriculturalInputs from "../../components/market/AgriculturalInputs";
 import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 const Market = () => {
   const { fetchData } = useFetchData();
@@ -55,6 +56,7 @@ const Market = () => {
           </div>
         </main>
       </div>
+      <Footer/>
     </>
   );
 };

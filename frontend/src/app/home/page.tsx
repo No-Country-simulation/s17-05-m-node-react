@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import withAuth from "../auth/withAuth";
 import Header from "../common/Header";
 import { useRouter } from "next/navigation";
+import Footer from "../common/Footer";
 
 interface WeatherForecast {
   pronosticoPorHoras: any;
@@ -337,6 +338,7 @@ interface WeatherForecast {
                             </button>
               </div>
       )}
+      <Footer/>
     </>
   );
 };

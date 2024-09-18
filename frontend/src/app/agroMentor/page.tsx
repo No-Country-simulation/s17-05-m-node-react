@@ -11,6 +11,7 @@ import { userStore } from "@/context/zustand";
 import TypeEffect from "@/components/TypeEffect";
 import { Campo } from "@/types";
 import Footer from "../common/Footer";
+import withAuth from "../auth/withAuth";
 
 type Conversation = { type: "question" | "response"; text: string }
 
@@ -149,4 +150,4 @@ const IaRecomendation = () => {
   );
 };
 
-export default IaRecomendation;
+export default withAuth(IaRecomendation);

@@ -10,6 +10,7 @@ import CurrencyExchange from "../../components/market/CurrencyExchange";
 import AgriculturalInputs from "../../components/market/AgriculturalInputs";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
+import withAuth from "../auth/withAuth";
 
 const Market = () => {
   const { fetchData } = useFetchData();
@@ -61,4 +62,4 @@ const Market = () => {
   );
 };
 
-export default Market;
+export default withAuth(Market);

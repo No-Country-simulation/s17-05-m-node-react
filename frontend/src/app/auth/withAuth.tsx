@@ -16,7 +16,7 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     useEffect(() => {
       if (typeof window !== "undefined") {
         const getToken = JSON.parse(localStorage.getItem("userStore") || "{}");
-        getToken?.state?.user.token ? setIsLogin(true) : router.push("/login");
+        getToken?.state?.user?.token ? setIsLogin(true) : router.push("/login");
       }
     }, [router]);
 

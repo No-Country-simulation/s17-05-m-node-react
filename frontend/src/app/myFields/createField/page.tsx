@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { isDecimal, isPositiveInteger } from "@/utils/validators";
 import dynamic from "next/dynamic";
 import withAuth from "@/app/auth/withAuth";
+import { LocationPicker } from "@/components/LocationPicker";
 
 const MapView = dynamic(() => import("../../../components/MapView"), {
   ssr: false,
@@ -98,6 +99,14 @@ const CreateField: React.FC = () => {
     }));
   };
 
+  const setLocation = (latitude: number, longitude: number) => {
+    setForm((prev) => ({
+      ...prev,
+      latitude: latitude + "",
+      longitude: longitude + "",
+    }));
+  };
+
   return (
     <div>
       <h3
@@ -143,11 +152,13 @@ const CreateField: React.FC = () => {
           </div>
 
           <div className="border h-[325px]">
-              <MapView
+            <MapView
               latitude={parseFloat(form.latitude)}
               longitude={parseFloat(form.longitude)}
-            />
-          
+            >
+              <LocationPicker setLocation={setLocation} />
+            </MapView>
+
             <div className="flex mt-5 space-x-2 justify-center">
               {locationInputFields.map((field, index) => (
                 <div className="relative" key={index + 1}>
@@ -172,4 +183,4 @@ const CreateField: React.FC = () => {
   );
 };
 
-export default withAuth(CreateField);
+export default CreateField;

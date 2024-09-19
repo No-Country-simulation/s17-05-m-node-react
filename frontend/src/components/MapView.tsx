@@ -1,15 +1,17 @@
 import { MapContainer, TileLayer, Popup } from "react-leaflet";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, ReactNode } from "react";
 import L from "leaflet";
 
 type Props = {
   latitude: number;
   longitude: number;
+  children?: ReactNode;
 };
 
 const MapView: React.FC<Props> = React.memo(function MapView({
   latitude,
   longitude,
+  children,
 }) {
   const mapRef = useRef<L.Map>(null);
 
@@ -25,7 +27,15 @@ const MapView: React.FC<Props> = React.memo(function MapView({
 
   if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
     return (
-      <div className="w-full h-[332px] bg-[#575857] rounded-lg flex items-center justify-center">
+      <div
+        className="w-full
+                   h-[332px]
+                   bg-[#575857]
+                   rounded-lg
+                   flex
+                   items-center
+                   justify-center"
+      >
         Coordenadas incorrectas
       </div>
     );
@@ -33,7 +43,14 @@ const MapView: React.FC<Props> = React.memo(function MapView({
 
   if (!navigator.geolocation) {
     return (
-      <div className="w-full h-[332px] bg-[#575857] flex items-center justify-center">
+      <div
+        className="w-full
+                   h-[332px]
+                   bg-[#575857]
+                   flex
+                   items-center
+                   justify-center"
+      >
         Tu navegador no tiene opción de Geolocation.
       </div>
     );
@@ -41,7 +58,9 @@ const MapView: React.FC<Props> = React.memo(function MapView({
 
   return (
     <MapContainer
-      className="w-full h-full rounded-lg"
+      className="w-full
+                 h-full
+                 rounded-lg"
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={false}
@@ -60,6 +79,7 @@ const MapView: React.FC<Props> = React.memo(function MapView({
       >
         <span>Usted está aquí</span>
       </Popup>
+      {children && children}
     </MapContainer>
   );
 });

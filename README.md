@@ -124,7 +124,7 @@ Pasos para hacer contribuciones al proyecto:
 
 ```mermaid
 flowchart
-   A(1 Clona el repositorio) -->((Forja el clon))
+   A(1 Clona el repositorio) --> B((Forja el clon))
    B --> C{2 Crea una rama característica}
    C --> D[Haz modificaciones]
    D --> E((3 Acomete cambios -commit-))
@@ -136,14 +136,14 @@ flowchart
 
 
 <!-- LICENSE -->
-## License
+## Licencia
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distribuido bajo la licencia MIT. Ver `LICENSE.txt` para mayor información.
 
 
 <!-- CONTACT -->
-## Contact
-| Nombre | Contactos |
+## Contactar
+| Nombre | Forma de contacto |
 |------|-----|
 | Orlando | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) createc.bo@gmail.com |
 

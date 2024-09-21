@@ -61,7 +61,7 @@ const UVIndex: React.FC<UVIndexProps> = ({ value, maxValue }) => {
           />
         </svg>
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-          <span className="text-3xl font-bold">{value}/10</span>
+          <span className="text-3xl font-bold">{value}/{maxValue}</span>
           <div className="text-xl mt-1">{getUVLevel(value)}</div>
         </div>
       </div>

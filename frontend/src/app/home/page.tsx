@@ -36,7 +36,7 @@ const WeatherDashboard: FC = () => {
   console.log(locations[0])
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
+  const [weatherForecast, setWeatherForescast] = useState<WeatherForecast>(
     {} as WeatherForecast
   );
   const [recommendation, setRecommendation] = useState({} as any);
@@ -66,12 +66,12 @@ const WeatherDashboard: FC = () => {
     latitud: selectedLocation?.latitude,
     longitude: selectedLocation?.longitude,
     crop: selectedLocation?.mainCrop,
-    humidity: weatherForescast?.climaActual?.humedad,
-    maxTemp: weatherForescast?.climaActual?.temperaturaMaxima,
-    minTemp: weatherForescast?.climaActual?.temperaturaMinima,
-    wind: weatherForescast?.climaActual?.viento,
-    clouds: weatherForescast?.climaActual?.nubes,
-    uv: weatherForescast?.climaActual?.indiceUv,
+    humidity: weatherForecast?.climaActual?.humedad,
+    maxTemp: weatherForecast?.climaActual?.temperaturaMaxima,
+    minTemp: weatherForecast?.climaActual?.temperaturaMinima,
+    wind: weatherForecast?.climaActual?.viento,
+    clouds: weatherForecast?.climaActual?.nubes,
+    uv: weatherForecast?.climaActual?.indiceUv,
   };
 
   const getRecommendation = async ({ }) => {
@@ -106,7 +106,7 @@ const WeatherDashboard: FC = () => {
   useEffect(() => {
 
     getRecommendation(bodyRecommendation);
-  }, [weatherForescast]);
+  }, [weatherForecast]);
 
 
   return (
@@ -157,172 +157,148 @@ const WeatherDashboard: FC = () => {
           </div>
 
           {/* Weather card for selected location */}
-          <div className="grid grid-cols-8 gap-4">
-            <div className="col-span-2 row-span-3 bg-green-300 rounded-lg p-4 text-gray-800 flex items-center justify-center">
-              <div className="flex flex-col items-center mb-2 gap-4 self-center">
-                {/* <div className="w-24 h-24 bg-yellow-300 rounded-full mr-2"></div> */}
-                <Image
-                  src={`https://openweathermap.org/img/wn/${weatherForescast?.climaActual?.iconoClimaActual}.png`}
-                  alt="clima actual"
-                  width={80}
-                  height={80}
-                />
-                <div className="text-4xl font-bold">
-                  {weatherForescast?.climaActual?.temperaturaActual}°C
-                </div>
-                <div className="text-center">{selectedLocation?.name}</div>
-                <div className="border-b-2 border-gray-200 pb-4 text-center">
-                  {new Intl.DateTimeFormat("es-AR", {
-                    weekday: "long",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  }).format(new Date())}
-                </div>
-                <div className="text-center">
-                  {new Intl.DateTimeFormat("es-AR", {
-                    weekday: "long",
-                    month: "long",
-                    day: "numeric",
-                  }).format(new Date(Date.now() + 1000 * 60 * 60 * 24))}
-                </div>
-                <div className="text-center">
-                  {weatherForescast?.prediccionDias?.[1]?.clima ?? ""}
-                </div>
-              </div>
-            </div>
-
-            {/* Weekly forecast */}
-            <div className="col-span-6 bg-gray-800 rounded-lg p-4 text-white">
-              <div className="flex justify-between">
-                {Array.from({ length: 7 }, (_, i) =>
-                  new Intl.DateTimeFormat("es-AR", { weekday: "long" }).format(
-                    new Date(Date.now() + 1000 * 60 * 60 * 24 * i)
-                  )
-                ).map((day, index) => (
-                  <div key={day} className="text-center">
-                    <div className="flex items-center justify-center">{day}</div>
-                    <Image
-                      src={`https://openweathermap.org/img/wn/${weatherForescast?.prediccionDias?.[index]?.icono}.png`}
-                      alt="clima"
-                      width={50}
-                      height={50}
-                      className="mx-auto"
-                    />
-                    <div className="flex items-center justify-center">
-                      {weatherForescast?.prediccionDias?.[index]
-                        ?.temperaturaMaxima.toFixed(0) ?? ""}
-                      ° {" "}
-                      {weatherForescast?.prediccionDias?.[index]
-                        ?.temperaturaMinima.toFixed(0) ?? ""}
-                      °
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Sunrise/Sunset */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white text-center flex items-center">
-              <div className="flex justify-center">
-                <div className="mx-2">
-                  <Image
-                    src="/sunrise.svg"
-                    alt="Sunrise"
-                    width={50}
-                    height={50}
-                    className="mx-auto"
-                  />
-                  <div>Amanecer</div>
-                  <div>{weatherForescast?.climaActual?.amanecer}</div>
-                </div>
-                <div className="mx-2">
-                  <Image
-                    src="/sunset.svg"
-                    alt="Sunset"
-                    width={50}
-                    height={50}
-                    className="mx-auto"
-                  />
-                  <div>Atardecer</div>
-                  <div>{weatherForescast?.climaActual?.atardecer}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* UV Index */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white  flex items-center align justify-center">
-
-              <UVIndex value={weatherForescast?.climaActual?.indiceUv} maxValue={10} />
-            </div>
-
-            {/* Moon phase */}
-            <div className="col-span-2  justify-center ">
-
-              <MoonPhase faseLunar={weatherForescast.climaActual?.faseLunar} location={selectedLocation.name} />
-
-            </div>
-
-            {/* Weather details */}
-            <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  Temperatura máxima:{" "}
-                  {weatherForescast?.climaActual?.temperaturaMaxima}°
-                </div>
-                <div>
-                  Temperatura mínima:{" "}
-                  {weatherForescast?.climaActual?.temperaturaMinima}°
-                </div>
-                <div>Humedad: {weatherForescast?.climaActual?.humedad}%</div>
-                <div>Nubes: {weatherForescast?.climaActual?.nubes} %</div>
-                <div>
-                  Viento: {weatherForescast?.climaActual?.viento.velocidad}km/h
-                </div>
-              </div>
-            </div>
-            {/* Weather infographics */}
-            <div className="col-span-3 row-span-2 bg-gray-800 rounded-lg ">
-              <img src="/riego.webp" alt="Weather" width={500} height={500} />
-            </div>
-
-            {/* Hourly forecast */}
-            <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white flex items-center justify-center">
-              <div className="flex justify-between">
-                {Array.from(
-                  { length: 6 },
-                  (_, i) => new Date(Date.now() + i * 60 * 60 * 1000)
-                ).map((date, i) => (
-                  <div key={date.toTimeString()} className="text-center p-1">
-                    <div>
-                      {date.toLocaleTimeString([], {
-                        hour: "numeric",
-                        // minute: "2-digit",
-                        hour12: true,
-                      }).toLowerCase()}
-                    </div>
-                    <Image
-                      src={`https://openweathermap.org/img/wn/${weatherForescast?.pronosticoPorHoras?.[i]?.icono}.png`}
-                      alt="clima"
-                      width={50}
-                      height={50}
-                    />
-                    <div>
-                      {weatherForescast?.pronosticoPorHoras?.[
-                        i
-                      ]?.temperatura.toFixed(0)}
-                      °
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Generic advice */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-2 text-white">
-              <div className="flex justify-between ">
-                {recommendation?.recomendation}
-              </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+      {/* Main Card */}
+      <div className="col-span-1 sm:col-span-2 sm:row-span-3 bg-green-300 rounded-lg p-4 text-gray-800 flex items-center justify-center">
+        <div className="flex flex-col items-center mb-2 gap-4 self-center">
+          <Image
+            src={`https://openweathermap.org/img/wn/${weatherForecast.climaActual?.iconoClimaActual}.png`}
+            alt="clima actual"
+            width={80}
+            height={80}
+          />
+          <div className="text-4xl font-bold">
+            {weatherForecast.climaActual?.temperaturaActual}°C
           </div>
+          <div className="text-center">{selectedLocation.name}</div>
+          <div className="border-b-2 border-gray-200 pb-4 text-center">
+            {new Intl.DateTimeFormat("es-AR", {
+              weekday: "long",
+              hour: "2-digit",
+              minute: "2-digit",
+            }).format(new Date())}
+          </div>
+          <div className="text-center">
+            {new Intl.DateTimeFormat("es-AR", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            }).format(new Date(Date.now() + 1000 * 60 * 60 * 24))}
+          </div>
+          <div className="text-center">
+            {weatherForecast.prediccionDias?.[1]?.clima ?? ""}
+          </div>
+        </div>
+      </div>
+
+      {/* Weekly forecast */}
+      <div className="col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-6 bg-gray-800 rounded-lg p-4 text-white">
+        <div className="flex flex-wrap justify-between">
+          {Array.from({ length: 7 }, (_, i) =>
+            new Intl.DateTimeFormat("es-AR", { weekday: "long" }).format(
+              new Date(Date.now() + 1000 * 60 * 60 * 24 * i)
+            )
+          ).map((day, index) => (
+            <div key={day} className="text-center p-2">
+              <div className="flex items-center justify-center">{day}</div>
+              <Image
+                src={`https://openweathermap.org/img/wn/${weatherForecast.prediccionDias?.[index]?.icono}.png`}
+                alt="clima"
+                width={50}
+                height={50}
+                className="mx-auto"
+              />
+              <div className="flex items-center justify-center">
+                {weatherForecast.prediccionDias?.[index]?.temperaturaMaxima.toFixed(0) ?? ""}°{" "}
+                {weatherForecast.prediccionDias?.[index]?.temperaturaMinima.toFixed(0) ?? ""}°
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sunrise/Sunset */}
+      <div className="col-span-1 sm:col-span-2 bg-gray-800 rounded-lg p-4 text-white text-center flex items-center justify-center">
+        <div className="flex justify-center">
+          <div className="mx-2">
+            <Image
+              src="/sunrise.svg"
+              alt="Sunrise"
+              width={50}
+              height={50}
+              className="mx-auto"
+            />
+            <div>Amanecer</div>
+            <div>{weatherForecast.climaActual?.amanecer}</div>
+          </div>
+          <div className="mx-2">
+            <Image
+              src="/sunset.svg"
+              alt="Sunset"
+              width={50}
+              height={50}
+              className="mx-auto"
+            />
+            <div>Atardecer</div>
+            <div>{weatherForecast.climaActual?.atardecer}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* UV Index */}
+      <div className="col-span-1 sm:col-span-2 bg-gray-800 rounded-lg p-4 text-white flex items-center justify-center">
+        <UVIndex value={weatherForecast.climaActual?.indiceUv ?? 0} maxValue={14} />
+      </div>
+
+      {/* Moon phase */}
+      <div className="col-span-1 sm:col-span-2 bg-gray-800 rounded-lg p-4 text-white flex items-center justify-center">
+        <MoonPhase faseLunar={weatherForecast.climaActual?.faseLunar ?? ''} location={selectedLocation.name} />
+      </div>
+
+      {/* Weather details */}
+      <div className="col-span-1 sm:col-span-3 bg-gray-800 rounded-lg p-4 text-white">
+        <div className="grid grid-cols-2 gap-4">
+          <div>Temperatura máxima: {weatherForecast.climaActual?.temperaturaMaxima}°</div>
+          <div>Temperatura mínima: {weatherForecast.climaActual?.temperaturaMinima}°</div>
+          <div>Humedad: {weatherForecast.climaActual?.humedad}%</div>
+          <div>Nubes: {weatherForecast.climaActual?.nubes} %</div>
+          <div>Viento: {weatherForecast.climaActual?.viento.velocidad}km/h</div>
+        </div>
+      </div>
+
+      {/* Weather infographics */}
+      <div className="col-span-1 sm:col-span-3 sm:row-span-2 bg-gray-800 rounded-lg overflow-hidden">
+        <Image src="/riego.webp" alt="Weather" width={500} height={500} layout="responsive" />
+      </div>
+
+      {/* Hourly forecast */}
+      <div className="col-span-1 sm:col-span-3 bg-gray-800 rounded-lg p-4 text-white">
+        <div className="flex flex-wrap justify-between">
+          {Array.from({ length: 6 }, (_, i) => new Date(Date.now() + i * 60 * 60 * 1000)).map((date, i) => (
+            <div key={date.toTimeString()} className="text-center p-2">
+              <div>
+                {date.toLocaleTimeString([], {
+                  hour: "numeric",
+                  hour12: true,
+                }).toLowerCase()}
+              </div>
+              <Image
+                src={`https://openweathermap.org/img/wn/${weatherForecast.pronosticoPorHoras?.[i]?.icono}.png`}
+                alt="clima"
+                width={50}
+                height={50}
+              />
+              <div>{weatherForecast.pronosticoPorHoras?.[i]?.temperatura.toFixed(0)}°</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Generic advice */}
+      <div className="col-span-1 sm:col-span-2 bg-gray-800 rounded-lg p-4 text-white">
+        <div>{recommendation?.recomendation}</div>
+      </div>
+    </div>
         </main>
       </div>) : (
         <div className="flex flex-col justify-center items-center bg-primary text-black min-h-custom">

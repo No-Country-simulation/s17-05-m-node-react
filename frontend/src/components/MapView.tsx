@@ -5,12 +5,14 @@ import L from "leaflet";
 type Props = {
   latitude: number;
   longitude: number;
+  name?: string;
   children?: ReactNode;
 };
 
 const MapView: React.FC<Props> = React.memo(function MapView({
   latitude,
   longitude,
+  name,
   children,
 }) {
   const mapRef = useRef<L.Map>(null);
@@ -63,7 +65,7 @@ const MapView: React.FC<Props> = React.memo(function MapView({
                  rounded-lg"
       center={[latitude, longitude]}
       zoom={15}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
       ref={mapRef}
     >
       <TileLayer
@@ -73,11 +75,11 @@ const MapView: React.FC<Props> = React.memo(function MapView({
       <Popup
         position={[latitude, longitude]}
         minWidth={90}
-        closeButton={false}
+        closeButton={true}
         autoClose={false}
         closeOnClick={false}
       >
-        <span>Usted está aquí</span>
+        <span>{name || "Sin nombre"}</span>
       </Popup>
       {children && children}
     </MapContainer>

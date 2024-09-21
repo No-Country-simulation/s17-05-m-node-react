@@ -155,6 +155,7 @@ const CreateField: React.FC = () => {
             <MapView
               latitude={parseFloat(form.latitude)}
               longitude={parseFloat(form.longitude)}
+              name={form.name}
             >
               <LocationPicker setLocation={setLocation} />
             </MapView>

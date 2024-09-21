@@ -83,6 +83,7 @@ const deleteOneField = async(id:number) => {
                 <MapView
                   latitude={parseFloat(field.latitude)}
                   longitude={parseFloat(field.longitude)}
+                  name={field.name}
                 />
               </div>
             </div>

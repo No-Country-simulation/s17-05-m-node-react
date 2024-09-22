@@ -39,7 +39,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="max-h-screen relativ bg-loginBg bg-cover bg-no-repeat flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen relativ bg-loginBg bg-cover bg-no-repeat flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Head>
         <title>Login</title>
         <meta name="description" content="Login page" />

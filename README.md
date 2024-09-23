@@ -10,11 +10,11 @@
 
 <!-- Aquí iran insignias de github, que serán habilitadas cuando el proyecto esté en público -->
 
-<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url] -->
+[![MIT License][license-shield]][license-url] 
 
 
 
@@ -145,7 +145,7 @@ Distribuido bajo la licencia MIT. Ver `LICENSE.txt` para mayor información.
 ## Contactar
 | Nombre | Forma de contacto |
 |------|-----|
-| Orlando | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) createc.bo@gmail.com |
+| Orlando | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) lalomax365@gmail.com |
 
 <!-- Link del proyecto: [https://github.com/lalomax/malware](https://github.com/lalomax/malware) -->
 
@@ -158,24 +158,23 @@ Queremos dar un reconocimiento especial a estas organizaciones por el impulso pa
 
 * [No Country](https://www.nocountry.tech/)
 * [OpenWeather](https://openweathermap.org/api)
+* [Leaflet](https://leafletjs.com/)
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/No-Country-simulation/s17-05-m-node-react/s17-05-m-node-react.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/No-Country-simulation/s17-05-m-node-react.svg?style=for-the-badge
 [contributors-url]: https://github.com/No-Country-simulation/s17-05-m-node-react/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/No-Country-simulation/s17-05-m-node-react/s17-05-m-node-react.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/No-Country-simulation/s17-05-m-node-react.svg?style=for-the-badge
 [forks-url]: https://github.com/No-Country-simulation/s17-05-m-node-react/switchmodes/network/members
-[stars-shield]: https://img.shields.io/github/stars/lalomax/malware.svg?style=for-the-badge
-[stars-url]: https://github.com/lalomax/malware/stargazers
-[issues-shield]: https://img.shields.io/github/issues/lalomax/malware.svg?style=for-the-badge
-[issues-url]: https://github.com/lalomax/malware/issues
+[stars-shield]: https://img.shields.io/github/stars/No-Country-simulation/s17-05-m-node-react.svg?style=for-the-badge
+[stars-url]: https://github.com/No-Country-simulation/s17-05-m-node-react/stargazers
+[issues-shield]: https://img.shields.io/github/issues/No-Country-simulation/s17-05-m-node-react.svg?style=for-the-badge
+[issues-url]: https://github.com/No-Country-simulation/s17-05-m-node-react/issues
 [license-shield]: https://img.shields.io/github/license/lalomax/malware.svg?style=for-the-badge
-[license-url]: https://github.com/lalomax/malware/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/orlando-flores365/
-[product-screenshot]: images/screenshot.png
+[license-url]: https://github.com/No-Country-simulation/s17-05-m-node-react/blob/master/LICENSE.txt
+
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [Vitejs]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white

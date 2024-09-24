@@ -176,7 +176,7 @@ const CreateField: React.FC = () => {
           </div>
         </div>
 
-        <div className="py-2">
+        <div className="pt-20 md:pt-0">
           <SubmitButton value="Agregar" />
         </div>
       </form>

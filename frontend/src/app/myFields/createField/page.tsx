@@ -184,4 +184,4 @@ const CreateField: React.FC = () => {
   );
 };
 
-export default CreateField;
+export default withAuth(CreateField);

@@ -297,7 +297,7 @@ const Header: React.FC = () => {
           </Link>
 
           <Link
-            href="/register"
+            href="/myProfile"
             className="w-11
                        h-11
                        lg:w-14

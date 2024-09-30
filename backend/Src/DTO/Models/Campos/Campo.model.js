@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../../Config/DB.config.js";
-import User from "../Users/User.model.js"
+import User from "../Users/User.model.js";
 
 const Campo = sequelize.define(
   "Campo",
@@ -45,7 +45,44 @@ const Campo = sequelize.define(
       allowNull: false,
     },
     mainCrop: {
-      type: DataTypes.ENUM("Soja", "Maiz", "Trigo", "Girasol", "Sorgo", "Otro"),
+      type: DataTypes.ENUM(
+        "Soja",
+        "Maíz",
+        "Trigo",
+        "Girasol",
+        "Cebada",
+        "Avena",
+        "Sorgo",
+        "Arroz",
+        "Maní",
+        "Lino",
+        "Algodón",
+        "Caña de azúcar",
+        "Tabaco",
+        "Uva (vinícola)",
+        "Uva (consumo)",
+        "Papa",
+        "Batata",
+        "Cebolla",
+        "Zanahoria",
+        "Tomate",
+        "Zapallo",
+        "Frutilla",
+        "Durazno",
+        "Naranja",
+        "Limón",
+        "Pomelo",
+        "Mandarina",
+        "Olivo",
+        "Manzana",
+        "Pera",
+        "Arándano",
+        "Kiwi",
+        "Chía",
+        "Quinoa",
+        "Cártamo",
+        "Pimientos"
+      ),
       allowNull: false,
     },
     weatherType: {

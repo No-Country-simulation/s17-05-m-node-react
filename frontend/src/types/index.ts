@@ -21,7 +21,7 @@ export interface LoadStateI {
 // Store Types
 
 interface UserTypes {
-  user: { id: string };
+  user: { id: string, firstName: string, lastName: string, email: string };
   token: string;
 }
 export interface Campo {

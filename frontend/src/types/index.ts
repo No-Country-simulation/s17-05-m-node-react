@@ -1,5 +1,7 @@
 // services Types
 
+import useFetchData from "@/hooks/useFetchData";
+
 export interface QueryProps {
   [key: string]: string;
 }
@@ -49,4 +51,10 @@ export interface UserStoreProps {
   closeSesion: () => void;
   addField: (fiel: Campo) => void;
   editField: (fiel: Campo) => void;
+}
+
+// useFetchData types
+
+export interface ServiceTypes {
+  registerUser: { id: string, firstName: string, lastName: string, email: string }
 }

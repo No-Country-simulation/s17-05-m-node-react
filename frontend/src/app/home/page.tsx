@@ -1,7 +1,6 @@
 "use client";
 import { userStore } from "@/context/zustand";
 import useFetchData from "@/hooks/useFetchData";
-import { getShortRecommendation, getWeatherForecast } from "@/services";
 import Head from "next/head";
 import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
@@ -12,6 +11,7 @@ import { useRouter } from "next/navigation";
 import UVIndex from "@/components/UVIndex";
 import Footer from "../common/Footer";
 import MoonPhase from "@/components/MoonPhase";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 interface WeatherForecast {
   pronosticoPorHoras: any;
@@ -51,12 +51,10 @@ const WeatherDashboard: FC = () => {
   );
 
   const getForescast = async (lat: string, lon: string) => {
-    const { ok, data } = await fetchData(getWeatherForecast, {
-      querys: { lat, lon },
-    });
+    const { status, response } = await fetchData("getWeatherForecast", { lat, lon });
 
-    ok
-      ? setWeatherForescast(data)
+    status
+      ? setWeatherForescast(response)
       : toast.error("No se puedo traer la prediccion del clima");
 
     // console.log(weatherForescast);
@@ -75,12 +73,12 @@ const WeatherDashboard: FC = () => {
   };
 
   const getRecommendation = async ({ }) => {
-    const { ok, data } = await fetchData(getShortRecommendation, {
-      body: bodyRecommendation,
-    });
-
-    ok
-      ? setRecommendation(data)
+    // const { status, response } = await fetchData("getShortRecommendation", {
+    //   body: bodyRecommendation,
+    // });
+    let status = false
+    status
+      ? false //setRecommendation(response)
       : toast.error("No se puedo traer las recomendaciones");
 
     console.log("Bodyrecommendation", bodyRecommendation);

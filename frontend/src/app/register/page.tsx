@@ -6,7 +6,6 @@ import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
-import { registerUser } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { icons } from "@/utils/icons";
@@ -23,10 +22,9 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetchData(registerUser, { body: formState });
-    console.log(response);
-
-    response.ok
+    const response = await fetchData("registerUser",  formState );
+    
+    response.status
       ? (toast.success("Se creo el usuario correctamente"),
         router.push("login"))
       : toast.error("No se pudo crear el usuario");

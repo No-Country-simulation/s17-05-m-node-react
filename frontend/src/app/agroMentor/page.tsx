@@ -3,7 +3,6 @@
 import useFetchData from "@/hooks/useFetchData";
 import Header from "../common/Header";
 import useFormState from "@/hooks/useFormState";
-import { getAgroMentorRecomendation } from "@/services";
 import { useState } from "react";
 import { toast } from "sonner";
 import { icons } from "@/utils/icons";
@@ -27,17 +26,15 @@ const IaRecomendation = () => {
     resetForm();
     setConversation((prev:any) => [...prev, client]);
 
-    const body: { question: String; field?: Campo } = { ...formState };
+    const body: { question: string; field?: Campo } = { ...formState };
     if (fieldSelect) body["field"] = fieldSelect;
 
-    const { ok, data } = await fetchData(getAgroMentorRecomendation, {
-      body: body,
-    });
+    const { status, response } = await fetchData("getAgroMentorRecomendation", body);
 
-    ok
+    status
       ? setConversation((prev: any) => [
           ...prev,
-          { type: "response", text: data.response },
+          { type: "response", text: response.response },
         ])
       : toast.error("No se pudo traer la recomendacion De AgroMentor");
   };

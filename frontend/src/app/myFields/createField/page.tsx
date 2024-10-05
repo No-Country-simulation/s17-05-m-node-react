@@ -10,7 +10,6 @@ import {
   newFieldSelectFields,
 } from "@/utils/inputFields";
 import useFetchData from "@/hooks/useFetchData";
-import { createCampo } from "@/services";
 import { toast } from "sonner";
 import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
@@ -55,15 +54,15 @@ const CreateField: React.FC = () => {
       season: form.season,
     };
 
-    const { ok, data } = await fetchData(createCampo, { body: newField });
+    const { status, response,error } = await fetchData("createCampo",  newField );
 
-    ok
+    status
       ? (toast.success("Se creo el campo correctamente!!"),
-        addField(data),
+        addField(response),
         router.push("/myFields"))
       : toast.error("No se pudo crear el campo!!");
 
-    console.log(data);
+    console.log(error);
   };
 
   useEffect(() => {

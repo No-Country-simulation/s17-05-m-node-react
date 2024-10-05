@@ -1,7 +1,6 @@
 "use client";
 
 import useFetchData from "@/hooks/useFetchData";
-import { getExchangeRates, getMarketGrainPrices } from "@/services";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -20,16 +19,16 @@ const Market = () => {
 
   useEffect(() => {
     const getMarketData = async () => {
-      const { ok, data } = await fetchData(getMarketGrainPrices, {});
-      ok
-        ? setMarketData(data)
+      const { status, response } = await fetchData("getMarketGrainPrices",null);
+      status
+        ? setMarketData(response)
         : toast.error("no se pudo traer la informacion del mercado");
     };
 
     const getMoneyData = async () => {
-      const { ok, data } = await fetchData(getExchangeRates, {});
-      ok
-        ? setExchangeRates(data)
+      const { status, response } = await fetchData("getExchangeRates",null);
+      status
+        ? setExchangeRates(response)
         : toast.error("no se pudo traer la informacion de tasas de cambio");
     };
 

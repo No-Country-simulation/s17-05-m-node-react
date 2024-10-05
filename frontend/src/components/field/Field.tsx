@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import Image from "next/image";
 import dynamic from 'next/dynamic';
 import useFetchData from '@/hooks/useFetchData';
-import { deleteCampo } from '@/services';
 import { toast } from 'sonner';
 import { userStore } from '@/context/zustand';
-import { useStore } from 'zustand';
 const MapView = dynamic(() => import("./../MapView"), {
   ssr: false,
 });
@@ -32,9 +30,9 @@ const Field: React.FC<FieldProps> = ({ field }) => {
 
 
 const deleteOneField = async(id:number) => {
-    const {ok} = await fetchData(deleteCampo,{url:id})
+    const {status} = await fetchData("deleteCampo",id)
 
-    if(ok){
+    if(status){
     toast.success("Campo eliminado correctamente")
     deleteField(id)
     } else toast.error("No se puedo eliminar el campo")

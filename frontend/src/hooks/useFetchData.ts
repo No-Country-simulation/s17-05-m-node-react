@@ -1,27 +1,15 @@
-import { useLoaderStore } from "@/context/loader.store";
-import { FuntionProps } from "@/types";
-import { AxiosResponse } from "axios";
-
-type EndPoint = <T>(data: FuntionProps<T>) => Promise<AxiosResponse<any, any>>;
+import { ServiceTypes } from "@/types";
+import services from "@/services";
 
 const useFetchData = () => {
-  const { showLoader, hideLoader } = useLoaderStore((state) => state);
-
-  const fetchData = async <T>(endPoint: EndPoint, data: FuntionProps<T>) => {
-    console.log("se llamo al hook");
-
-    // showLoader();
-    try {
-      const result = await endPoint(data);
-      return { ok: true, data: result.data };
-    } catch (error) {
-      return { ok: false, error: error };
-    } finally {
-      // hideLoader();
-    }
-  };
-
-  return { fetchData };
+    const fetchData = async <T extends keyof ServiceTypes>(service: T, data: ServiceTypes[T]) => {
+        try {
+            return { status: true, response: (await services[service](data)).data };
+        } catch (error) {
+            return { status: false, error };
+        }
+    };
+    return { fetchData };
 };
 
 export default useFetchData;

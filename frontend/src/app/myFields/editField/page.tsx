@@ -6,7 +6,6 @@ import { Input } from "@/components/form/Input";
 import { Select } from "@/components/form/Select";
 import { newFieldInputFields, newFieldSelectFields } from "@/utils/inputFields";
 import useFetchData from "@/hooks/useFetchData";
-import { editCampo, getCampoById } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { isDecimal, isPositiveInteger } from "@/utils/validators";
@@ -59,18 +58,19 @@ const EditField: React.FC = () => {
       season: form.season,
     };
 
-    const { ok, data } = await fetchData(editCampo, {
-      url: fieldId,
-      body: updatedField,
-    });
+    // const { status, response } = await fetchData("editCampo", {
+    //   url: fieldId,
+    //   body: updatedField,
+    // });
 
-    ok
-      ? (toast.success("Se editó el campo correctamente!!"),
-        editField(data),
-        router.push("/myFields"))
-      : toast.error("No se pudo editar el campo!!");
+    // status
+    //   ? (toast.success("Se editó el campo correctamente!!"),
+    //     editField(response),
+    //     router.push("/myFields"))
+    //   : toast.error("No se pudo editar el campo!!");
 
-    console.log(data);
+    // console.log(data)
+    toast.error("No se pudo editar el campo!!");
   };
 
   useEffect(() => {
@@ -80,21 +80,21 @@ const EditField: React.FC = () => {
     }
     console.log("Fetching field data");
     const getFieldData = async () => {
-      const { ok, data } = await fetchData(getCampoById, { url: fieldId });
+      const { status, response } = await fetchData("getCampoById", fieldId );
 
-      ok
+      status
         ? setForm({
-            id: data.id,
-            userId: data.userId,
-            name: data.name,
-            latitude: data.latitude + "",
-            longitude: data.longitude + "",
-            size: data.size + "",
-            workersAmount: data.workersAmount + "",
-            mainCrop: data.mainCrop,
-            weatherType: data.weatherType,
-            administration: data.administration,
-            season: data.season,
+            id: response.id,
+            userId: response.userId,
+            name: response.name,
+            latitude: response.latitude + "",
+            longitude: response.longitude + "",
+            size: response.size + "",
+            workersAmount: response.workersAmount + "",
+            mainCrop: response.mainCrop,
+            weatherType: response.weatherType,
+            administration: response.administration,
+            season: response.season,
           })
         : toast.error("No se pudieron cargar los datos del campo");
     };

@@ -1,5 +1,7 @@
 // services Types
 
+import useFetchData from "@/hooks/useFetchData";
+
 export interface QueryProps {
   [key: string]: string;
 }
@@ -49,4 +51,48 @@ export interface UserStoreProps {
   closeSesion: () => void;
   addField: (fiel: Campo) => void;
   editField: (fiel: Campo) => void;
+}
+
+// useFetchData types
+
+export interface EditCampoTypes {url: string, body: {
+  userId: string,
+  name: string,
+  latitude: string,
+  longitude: string,
+  size: string,
+  workersAmount: string,
+  mainCrop: string,
+  weatherType: string,
+  administration: string,
+  season: string,
+}}
+
+interface CreateCampoTypes {
+  userId?: string,
+  name: String,
+  latitude: number,
+  longitude: number,
+  size: number,
+  workersAmount: number,
+  mainCrop: string,
+  weatherType: string,
+  administration: string,
+  season: string,
+}
+
+export interface ServiceTypes {
+  registerUser: { firstName: string, lastName: string, email: string, password: string }
+  loginUser: { email: string, password: string },
+  getUserById: string, 
+  getWeatherForecast: Record<string,string>,
+  getAllCamposByUserId: string,
+  getCampoById:string,
+  createCampo: CreateCampoTypes
+  // editCampo: EditCampoTypes
+  deleteCampo: number
+  getMarketGrainPrices:  null,
+  getExchangeRates: null,
+  getAgroMentorRecomendation: {question: string, field?: Campo},
+  // getShortRecommendation:
 }

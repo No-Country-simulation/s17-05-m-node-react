@@ -6,7 +6,6 @@ import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
-import { loginUser, getAllCamposByUserId } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/context/zustand";
@@ -20,20 +19,18 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { ok, data } = await fetchData(loginUser, { body: formState });
+    const { status, response } = await fetchData("loginUser", formState );
 
-    if (ok) {
-      console.log(data);
+    if (status) {
+      console.log(response);
       toast.success("Usuario correcto");
-      setUser(data);
+      setUser(response);
       router.push("home");
 
-      const getFields = await fetchData(getAllCamposByUserId, {
-        url: data.user.id,
-      });
+      const getFields = await fetchData("getAllCamposByUserId",response.user.id);
 
-      getFields.ok
-        ? setFields(getFields.data.campos)
+      getFields.status
+        ? setFields(getFields.response.campos)
         : console.error("No se pudieron traer los campos");
     } else toast.error("Usuario incorrecto");
   };

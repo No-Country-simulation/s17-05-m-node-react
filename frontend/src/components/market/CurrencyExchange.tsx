@@ -1,5 +1,4 @@
 import React from 'react';
-import { getExchangeRates } from '../../services/index';
 
 interface ExchangeRate {
   dollar: string;

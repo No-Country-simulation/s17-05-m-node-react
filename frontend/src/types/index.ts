@@ -55,6 +55,41 @@ export interface UserStoreProps {
 
 // useFetchData types
 
+export interface editCampoTypes {url: string, body: {
+  userId: string,
+  name: string,
+  latitude: string,
+  longitude: string,
+  size: string,
+  workersAmount: string,
+  mainCrop: string,
+  weatherType: string,
+  administration: string,
+  season: string,
+}}
+
 export interface ServiceTypes {
   registerUser: { id: string, firstName: string, lastName: string, email: string }
+  loginUser: { email: string, password: string },
+  getUserById: string, 
+  getWeatherForecast: Record<string,string>,
+  getAllCamposByUserId: string,
+  getCampoById:string,
+  createCampo: {
+    name: "",
+    latitude: "",
+    longitude: "",
+    size: "",
+    workersAmount: "",
+    mainCrop: "",
+    weatherType: "",
+    administration: "",
+    season: "",
+  }
+  // editCampo: editCampoTypes
+  deleteCampo: string
+  getMarketGrainPrices:  unknown,
+  getExchangeRates: unknown,
+  getAgroMentorRecomendation: {question: string, field?: Campo},
+  // getShortRecommendation:
 }

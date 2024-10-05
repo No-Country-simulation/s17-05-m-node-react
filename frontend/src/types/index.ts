@@ -69,15 +69,16 @@ export interface EditCampoTypes {url: string, body: {
 }}
 
 interface CreateCampoTypes {
-  name: "",
-  latitude: "",
-  longitude: "",
-  size: "",
-  workersAmount: "",
-  mainCrop: "",
-  weatherType: "",
-  administration: "",
-  season: "",
+  userId?: string,
+  name: String,
+  latitude: number,
+  longitude: number,
+  size: number,
+  workersAmount: number,
+  mainCrop: string,
+  weatherType: string,
+  administration: string,
+  season: string,
 }
 
 export interface ServiceTypes {
@@ -89,7 +90,7 @@ export interface ServiceTypes {
   getCampoById:string,
   createCampo: CreateCampoTypes
   // editCampo: EditCampoTypes
-  deleteCampo: string
+  deleteCampo: number
   getMarketGrainPrices:  null,
   getExchangeRates: null,
   getAgroMentorRecomendation: {question: string, field?: Campo},

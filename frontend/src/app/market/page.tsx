@@ -7,8 +7,8 @@ import { toast } from "sonner";
 import CropPrices from "../../components/market/CropPrices";
 import CurrencyExchange from "../../components/market/CurrencyExchange";
 import AgriculturalInputs from "../../components/market/AgriculturalInputs";
-import Header from "../common/Header";
-import Footer from "../common/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import withAuth from "../auth/withAuth";
 
 const Market = () => {

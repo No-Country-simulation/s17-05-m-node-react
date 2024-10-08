@@ -3,8 +3,8 @@
 import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
 import Field from "../../components/field/Field";
-import Header from "../common/Header";
-import Footer from "../common/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import withAuth from "../auth/withAuth";
 // import { useState } from "react";
 

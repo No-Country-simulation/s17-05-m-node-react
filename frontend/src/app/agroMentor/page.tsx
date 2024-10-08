@@ -1,7 +1,7 @@
 "use client";
 
 import useFetchData from "@/hooks/useFetchData";
-import Header from "../common/Header";
+import Header from "../../components/Header";
 import useFormState from "@/hooks/useFormState";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -9,7 +9,7 @@ import { icons } from "@/utils/icons";
 import { userStore } from "@/context/zustand";
 import TypeEffect from "@/components/TypeEffect";
 import { Campo } from "@/types";
-import Footer from "../common/Footer";
+import Footer from "../../components/Footer";
 import withAuth from "../auth/withAuth";
 
 type Conversation = { type: "question" | "response"; text: string }

@@ -6,10 +6,10 @@ import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import withAuth from "../auth/withAuth";
-import Header from "../common/Header";
+import Header from "../../components/Header";
 import { useRouter } from "next/navigation";
 import UVIndex from "@/components/UVIndex";
-import Footer from "../common/Footer";
+import Footer from "../../components/Footer";
 import MoonPhase from "@/components/MoonPhase";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 

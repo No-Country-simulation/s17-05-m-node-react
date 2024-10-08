@@ -146,6 +146,7 @@ Distribuido bajo la licencia MIT. Ver `LICENSE.txt` para mayor información.
 | Nombre | Forma de contacto |
 |------|-----|
 | Orlando | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) lalomax365@gmail.com |
+| Luz | luz.tabrajb@gmail.com |
 
 <!-- Link del proyecto: [https://github.com/lalomax/malware](https://github.com/lalomax/malware) -->
 

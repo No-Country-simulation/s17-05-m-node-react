@@ -60,9 +60,9 @@ const WeatherDashboard: FC = () => {
     // console.log(weatherForescast);
   };
 
-  const bodyRecommendation = {
-    latitud: selectedLocation?.latitude,
-    longitude: selectedLocation?.longitude,
+  const  bodyRecommendation= {
+    latitud: Number(selectedLocation?.latitude),
+    longitude: Number(selectedLocation?.longitude),
     crop: selectedLocation?.mainCrop,
     humidity: weatherForecast?.climaActual?.humedad,
     maxTemp: weatherForecast?.climaActual?.temperaturaMaxima,
@@ -70,18 +70,15 @@ const WeatherDashboard: FC = () => {
     wind: weatherForecast?.climaActual?.viento,
     clouds: weatherForecast?.climaActual?.nubes,
     uv: weatherForecast?.climaActual?.indiceUv,
-  };
+  } 
 
-  const getRecommendation = async ({ }) => {
-    // const { status, response } = await fetchData("getShortRecommendation", {
-    //   body: bodyRecommendation,
-    // });
-    let status = false
+  const getRecommendation = async () => {
+
+    const { status, response } = await fetchData("getShortRecommendation", bodyRecommendation);
+    // let status = false
     status
-      ? false //setRecommendation(response)
-      : toast.error("No se puedo traer las recomendaciones");
-
-    console.log("Bodyrecommendation", bodyRecommendation);
+      ? setRecommendation(response)
+      : toast.error("No se pudo traer la recomendación");
   };
 
   useEffect(() => {
@@ -103,7 +100,7 @@ const WeatherDashboard: FC = () => {
   }, [selectedLocation]);
   useEffect(() => {
 
-    getRecommendation(bodyRecommendation);
+    getRecommendation();
   }, [weatherForecast]);
 
 

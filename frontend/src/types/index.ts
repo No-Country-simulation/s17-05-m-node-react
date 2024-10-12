@@ -42,6 +42,18 @@ export interface Campo {
   createdAt: string; // ISO date format
 }
 
+
+export interface CampoGeneral {
+  latitud: number;
+  longitude: number;
+  crop: string;
+  humidity: number;
+  maxTemp: number;
+  minTemp: number;
+  wind: number;
+  clouds: number;
+  uv: number;
+}
 export interface UserStoreProps {
   user: UserTypes | null;
   fields: Campo[];
@@ -88,11 +100,11 @@ export interface ServiceTypes {
   getWeatherForecast: Record<string,string>,
   getAllCamposByUserId: string,
   getCampoById:string,
-  createCampo: CreateCampoTypes
+  createCampo: CreateCampoTypes,
   // editCampo: EditCampoTypes
-  deleteCampo: number
+  deleteCampo: number,
   getMarketGrainPrices:  null,
   getExchangeRates: null,
   getAgroMentorRecomendation: {question: string, field?: Campo},
-  // getShortRecommendation:
+  getShortRecommendation: CampoGeneral
 }

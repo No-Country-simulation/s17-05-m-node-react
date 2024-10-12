@@ -62,7 +62,7 @@ const services = {
   getMarketGrainPrices,
   getExchangeRates,
   getAgroMentorRecomendation,
-  // getShortRecommendation,
+  getShortRecommendation,
 };
 
 export default services;

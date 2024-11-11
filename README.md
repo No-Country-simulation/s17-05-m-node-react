@@ -143,11 +143,11 @@ Distribuido bajo la licencia MIT. Ver `LICENSE.txt` para mayor información.
 
 <!-- CONTACT -->
 ## Contactar
-| Nombre | Forma de contacto |
-|------|-----|
-| Orlando | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) lalomax365@gmail.com |
-| Luz | luz.tabrajb@gmail.com [Linkedin](www.linkedin.com/in/luz-tabraj) |
-| Fernando | fdandreoli@gmail.com [LinkedIn](https://www.linkedin.com/in/fernando-andreoli/) |
+| Nombre | Rol en el Proyecto | Forma de contacto |
+|------|-----|-----|
+| Orlando | Frontend | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) lalomax365@gmail.com |
+| Luz | QA Tester | luz.tabrajb@gmail.com [Linkedin](www.linkedin.com/in/luz-tabraj) |
+| Fernando | PM | fdandreoli@gmail.com [LinkedIn](https://www.linkedin.com/in/fernando-andreoli/) |
 
 
 <!-- Link del proyecto: [https://github.com/lalomax/malware](https://github.com/lalomax/malware) -->

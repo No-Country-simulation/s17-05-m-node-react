@@ -148,6 +148,7 @@ Distribuido bajo la licencia MIT. Ver `LICENSE.txt` para mayor información.
 | Orlando | Frontend | [X](https://x.com/OrlandoFloresH) [Linktree](https://linktr.ee/lalomax) lalomax365@gmail.com |
 | Luz | QA Tester | luz.tabrajb@gmail.com [Linkedin](www.linkedin.com/in/luz-tabraj) |
 | Fernando | PM | fdandreoli@gmail.com [LinkedIn](https://www.linkedin.com/in/fernando-andreoli/) |
+| Mikhail | QA Tester | mikhailgarcilano1997@gmail.com [LinkedIn](https://www.linkedin.com/in/mikhailgarcilano/) |
 
 
 <!-- Link del proyecto: [https://github.com/lalomax/malware](https://github.com/lalomax/malware) -->
